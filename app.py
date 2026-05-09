@@ -188,12 +188,14 @@ BLECA SMARTLABS KNOWLEDGE BASE
 
 1. ORGANIZATION OVERVIEW
 ------------------------
-BLECA SmartLabs is a technology and innovation initiative focused on Artificial Intelligence (AI),
+BLECA SmartLabs is a startup of technology and innovation initiative focused on Artificial Intelligence (AI),
 Software Engineering, Data Science, Smart Systems, Digital Transformation, and Research-based
-technology development.
+technology development located at CITT building in Mbeya University of science and technology (MUST). 
 
 The organization aims to empower students, developers, innovators, researchers, startups, and
 communities through modern intelligent technologies and practical digital solutions.
+
+BLECA stands for Building, Learning, Exploring, Creating and Advancing practical digital solutions.
 
 BLECA SmartLabs combines:
 - Artificial Intelligence
@@ -553,7 +555,24 @@ AI, Machine Learning, Data Science, Software Engineering, Innovation, Research,
 Digital Transformation, Chatbot, RAG, Automation, Smart Systems, Education Technology,
 Analytics, Cloud Computing, BLECA, SmartLabs, Tanzania, Africa, Gemini, Python, Streamlit
 
-22. FINAL SUMMARY
+22. LOCATION AND CONTACT
+-------------------------
+BLECA SmartLabs is located at:
+- Mbeya University of Science and Technology (MUST),CITT building
+- Mbeya, Tanzania
+- East Africa
+
+Contact and Social Media:
+- GitHub: github.com/bleca-smartlabs
+- Email: bleca@smartlabs.co.tz
+- Location: CITT building MUST Campus, Mbeya, Tanzania
+
+23. Co-FOUNDERS  AND OTHER MEMBERS OF BLECA SMARTLABS
+BLECA SmartLabs is a technology and innovation initiative based in Mbeya, Tanzania. 
+The co-founders of BLECA SmartLabs are Blandina Kakore and Fedelika Maxmus. Other people associated with BLECA SmartLabs include Johnson Hassan, Chris Bwesa, and Bro Ipyana.
+BLECA SmartLabs is closely connected with the innovation ecosystem around Mbeya University of Science and Technology (MUST).
+
+24. FINAL SUMMARY
 ------------------
 BLECA SmartLabs is a smart technology and AI innovation initiative focused on building
 intelligent systems, empowering developers and students, supporting research, and advancing
