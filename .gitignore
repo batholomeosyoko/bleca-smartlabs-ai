@@ -1,3 +1,15 @@
-chroma_db_v2/ 
-__pycache__/ 
-*.pyc 
+# Secrets - USIPUSH kwenda GitHub
+.streamlit/secrets.toml
+
+# ChromaDB vector database
+chroma_db/
+chroma_db_v2/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environment
+venv/
+env/

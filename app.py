@@ -70,12 +70,39 @@ st.markdown("""
         opacity: 0.7;
     }
 
-    /* Input box */
+    /* Input box - comprehensive fix */
     .stTextInput > div > div > input {
-        background: rgba(255,255,255,0.07) !important;
-        border: 1px solid rgba(167,139,250,0.5) !important;
-        border-radius: 8px !important;
-        color: #f0f0f0 !important;
+        background: #1e1b4b !important;
+        border: 2px solid #7c3aed !important;
+        border-radius: 10px !important;
+        color: #ffffff !important;
+        font-size: 1rem !important;
+        padding: 12px 16px !important;
+        caret-color: #a78bfa !important;
+    }
+    .stTextInput > div > div > input:focus {
+        border-color: #a78bfa !important;
+        box-shadow: 0 0 0 3px rgba(167,139,250,0.2) !important;
+        outline: none !important;
+    }
+    .stTextInput > div > div > input::placeholder {
+        color: #9ca3af !important;
+        opacity: 1 !important;
+    }
+    .stTextInput label {
+        color: #e2e8f0 !important;
+    }
+    p, span, label { color: #e2e8f0; }
+    [data-testid="stSidebar"] p,
+    [data-testid="stSidebar"] span,
+    [data-testid="stSidebar"] label {
+        color: #e2e8f0 !important;
+    }
+    [data-testid="stSidebar"] .stTextInput > div > div > input {
+        background: #1e1b4b !important;
+        border: 2px solid #7c3aed !important;
+        color: #ffffff !important;
+        border-radius: 10px !important;
     }
 
     /* Button */
@@ -83,13 +110,26 @@ st.markdown("""
         background: linear-gradient(135deg, #7c3aed, #2563eb) !important;
         color: white !important;
         border: none !important;
-        border-radius: 8px !important;
-        font-weight: 600 !important;
+        border-radius: 10px !important;
+        font-weight: 700 !important;
+        font-size: 1rem !important;
+        padding: 12px 20px !important;
         transition: all 0.2s ease !important;
     }
     .stButton > button:hover {
-        transform: translateY(-1px) !important;
-        box-shadow: 0 4px 15px rgba(124,58,237,0.4) !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 6px 20px rgba(124,58,237,0.5) !important;
+    }
+    [data-testid="stSidebar"] .stButton > button {
+        background: rgba(124,58,237,0.2) !important;
+        border: 1px solid rgba(167,139,250,0.4) !important;
+        color: #c4b5fd !important;
+        font-size: 0.85rem !important;
+        font-weight: 500 !important;
+    }
+    [data-testid="stSidebar"] .stButton > button:hover {
+        background: rgba(124,58,237,0.4) !important;
+        color: #ffffff !important;
     }
 
     /* Status badges */
@@ -148,9 +188,9 @@ BLECA SMARTLABS KNOWLEDGE BASE
 
 1. ORGANIZATION OVERVIEW
 ------------------------
-BLECA SmartLabs is a startup of technology and innovation initiative focused on Artificial Intelligence (AI),
+BLECA SmartLabs is a technology and innovation initiative focused on Artificial Intelligence (AI),
 Software Engineering, Data Science, Smart Systems, Digital Transformation, and Research-based
-technology development found in Mbeya university of science and technology (MUST), in CITT building(Home of Innovation and skills).
+technology development.
 
 The organization aims to empower students, developers, innovators, researchers, startups, and
 communities through modern intelligent technologies and practical digital solutions.
@@ -511,21 +551,9 @@ advance AI education, and support digital transformation across Africa.
 -----------------------
 AI, Machine Learning, Data Science, Software Engineering, Innovation, Research,
 Digital Transformation, Chatbot, RAG, Automation, Smart Systems, Education Technology,
-Analytics, Cloud Computing, BLECA, SmartLabs, Tanzania, Africa, Gemini, Python, 
+Analytics, Cloud Computing, BLECA, SmartLabs, Tanzania, Africa, Gemini, Python, Streamlit
 
-22. LOCATION AND CONTACT
--------------------------
-BLECA SmartLabs is located at:
-- Mbeya University of Science and Technology (MUST)
-- Mbeya, Tanzania
-- East Africa
-
-Contact and Social Media:
-- GitHub: github.com/bleca-smartlabs
-- Email: bleca@smartlabs.co.tz
-- Location: MUST CampusCITT Buildings, Mbeya, Tanzania
-
-23. FINAL SUMMARY
+22. FINAL SUMMARY
 ------------------
 BLECA SmartLabs is a smart technology and AI innovation initiative focused on building
 intelligent systems, empowering developers and students, supporting research, and advancing
@@ -595,16 +623,16 @@ Answer clearly and accurately."""
     return response.text
 
 
+# ─── API Key from Streamlit Secrets ──────────────────────────────────────────
+try:
+    api_key = st.secrets["GOOGLE_API_KEY"]
+except Exception:
+    api_key = None
+
 # ─── Sidebar ───────────────────────────────────────────────────────────────────
 with st.sidebar:
-    st.markdown("## ⚙️ Configuration")
-    api_key = st.text_input(
-        "Google Gemini API Key",
-        type="password",
-        placeholder="AIza...",
-        help="Get your key from https://aistudio.google.com/",
-    )
-
+    st.markdown("## 🤖 BLECA SmartLabs AI")
+    st.markdown("Your intelligent AI assistant powered by Gemini + RAG")
     st.markdown("---")
     st.markdown("## 📊 Session Stats")
 
@@ -682,7 +710,7 @@ if api_key:
                 <span class='status-badge status-error'>❌ Error: {str(e)[:60]}</span>
             </div>""", unsafe_allow_html=True)
 else:
-    st.info("👈 Enter your **Google Gemini API Key** in the sidebar to start chatting.")
+    st.error("⚠️ API Key haipo. Wasiliana na admin wa BLECA SmartLabs.")
 
 st.markdown("---")
 
@@ -722,7 +750,7 @@ with col_btn:
 # Handle send
 if (send or pending) and user_input.strip():
     if not api_key:
-        st.warning("Please enter your API key first.")
+        st.error("⚠️ API Key haipo. Wasiliana na admin.")
     elif gemini_model is None:
         st.error("AI model failed to load. Check your API key.")
     else:
