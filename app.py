@@ -195,7 +195,7 @@ technology development located at CITT building in Mbeya University of science a
 The organization aims to empower students, developers, innovators, researchers, startups, and
 communities through modern intelligent technologies and practical digital solutions.
 
-BLECA stands for Building, Learning, Exploring, Creating and Advancing practical digital solutions.
+-BLECA stands for Building, Learning, Exploring, Creating and Advancing practical digital solutions.
 
 BLECA SmartLabs combines:
 - Artificial Intelligence
@@ -598,7 +598,7 @@ class EmbeddingWrapper:
 @st.cache_resource(show_spinner=False)
 def setup_rag(api_key: str):
     genai.configure(api_key=api_key)
-    gemini = genai.GenerativeModel("gemini-1.5-flash")
+    gemini = genai.GenerativeModel("gemini-1.5-flash-latest")
 
     splitter = RecursiveCharacterTextSplitter(chunk_size=300, chunk_overlap=80)
     chunks = splitter.split_text(KNOWLEDGE_BASE)
@@ -769,7 +769,7 @@ with col_btn:
 # Handle send
 if (send or pending) and user_input.strip():
     if not api_key:
-        st.error("⚠️ API Key haipo. Wasiliana na admin.")
+        st.error("⚠️ No API KEY, communicate to Admin!.")
     elif gemini_model is None:
         st.error("AI model failed to load. Check your API key.")
     else:
