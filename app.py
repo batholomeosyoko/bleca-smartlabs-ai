@@ -1,5 +1,5 @@
 import streamlit as st
-import google.generativeai as genai
+import requests
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import Chroma
 from sentence_transformers import SentenceTransformer
@@ -188,14 +188,12 @@ BLECA SMARTLABS KNOWLEDGE BASE
 
 1. ORGANIZATION OVERVIEW
 ------------------------
-BLECA SmartLabs is a startup of technology and innovation initiative focused on Artificial Intelligence (AI),
+BLECA SmartLabs is a technology and innovation initiative focused on Artificial Intelligence (AI),
 Software Engineering, Data Science, Smart Systems, Digital Transformation, and Research-based
-technology development located at CITT building in Mbeya University of science and technology (MUST). 
+technology development.
 
 The organization aims to empower students, developers, innovators, researchers, startups, and
 communities through modern intelligent technologies and practical digital solutions.
-
--BLECA stands for Building, Learning, Exploring, Creating and Advancing practical digital solutions.
 
 BLECA SmartLabs combines:
 - Artificial Intelligence
@@ -555,24 +553,7 @@ AI, Machine Learning, Data Science, Software Engineering, Innovation, Research,
 Digital Transformation, Chatbot, RAG, Automation, Smart Systems, Education Technology,
 Analytics, Cloud Computing, BLECA, SmartLabs, Tanzania, Africa, Gemini, Python, Streamlit
 
-22. LOCATION AND CONTACT
--------------------------
-BLECA SmartLabs is located at:
-- Mbeya University of Science and Technology (MUST),CITT building
-- Mbeya, Tanzania
-- East Africa
-
-Contact and Social Media:
-- GitHub: github.com/bleca-smartlabs
-- Email: bleca@smartlabs.co.tz
-- Location: CITT building MUST Campus, Mbeya, Tanzania
-
-23. Co-FOUNDERS  AND OTHER MEMBERS OF BLECA SMARTLABS
-BLECA SmartLabs is a technology and innovation initiative based in Mbeya, Tanzania. 
-The co-founders of BLECA SmartLabs are Blandina Kakore and Fedelika Maxmus. Other people associated with BLECA SmartLabs include Johnson Hassan, Chris Bwesa, and Bro Ipyana.
-BLECA SmartLabs is closely connected with the innovation ecosystem around Mbeya University of Science and Technology (MUST).
-
-24. FINAL SUMMARY
+22. FINAL SUMMARY
 ------------------
 BLECA SmartLabs is a smart technology and AI innovation initiative focused on building
 intelligent systems, empowering developers and students, supporting research, and advancing
@@ -597,8 +578,8 @@ class EmbeddingWrapper:
 # ─── Cached RAG Setup ─────────────────────────────────────────────────────────
 @st.cache_resource(show_spinner=False)
 def setup_rag(api_key: str):
-    genai.configure(api_key=api_key)
-    gemini = genai.GenerativeModel("gemini-1.5-flash-latest")
+    # Store api_key for use in ask_rag
+    gemini = api_key
 
     splitter = RecursiveCharacterTextSplitter(chunk_size=300, chunk_overlap=80)
     chunks = splitter.split_text(KNOWLEDGE_BASE)
@@ -614,7 +595,7 @@ def setup_rag(api_key: str):
     return gemini, db, len(chunks)
 
 
-def ask_rag(question: str, gemini, db) -> str:
+def ask_rag(question: str, api_key, db) -> str:
     docs = db.similarity_search(question, k=4)
     context = "\n\n".join([d.page_content for d in docs])
 
@@ -635,11 +616,14 @@ QUESTION:
 
 Answer clearly and accurately."""
 
-    response = gemini.generate_content(
-        prompt,
-        generation_config={"temperature": 0.1},
-    )
-    return response.text
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key={api_key}"
+    payload = {
+        "contents": [{"parts": [{"text": prompt}]}],
+        "generationConfig": {"temperature": 0.1}
+    }
+    resp = requests.post(url, json=payload)
+    resp.raise_for_status()
+    return resp.json()["candidates"][0]["content"]["parts"][0]["text"]
 
 
 # ─── API Key from Streamlit Secrets ──────────────────────────────────────────
@@ -769,7 +753,7 @@ with col_btn:
 # Handle send
 if (send or pending) and user_input.strip():
     if not api_key:
-        st.error("⚠️ No API KEY, communicate to Admin!.")
+        st.error("⚠️ API Key haipo. Wasiliana na admin.")
     elif gemini_model is None:
         st.error("AI model failed to load. Check your API key.")
     else:
