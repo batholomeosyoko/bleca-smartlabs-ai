@@ -598,7 +598,7 @@ class EmbeddingWrapper:
 @st.cache_resource(show_spinner=False)
 def setup_rag(api_key: str):
     genai.configure(api_key=api_key)
-    gemini = genai.GenerativeModel("gemini-2.5-flash")
+    gemini = genai.GenerativeModel("gemini-1.5-flash")
 
     splitter = RecursiveCharacterTextSplitter(chunk_size=300, chunk_overlap=80)
     chunks = splitter.split_text(KNOWLEDGE_BASE)
